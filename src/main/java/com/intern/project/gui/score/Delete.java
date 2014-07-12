@@ -82,7 +82,7 @@ public class Delete {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 560, 380);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -119,7 +119,7 @@ public class Delete {
 		panel.add(lblAreYouSure);
 		
 		textField_stuID = new JTextField();
-		textField_stuID.setBackground(Color.WHITE);
+		textField_stuID.setBackground(new Color(238, 232, 170));
 		textField_stuID.setEditable(false);
 		textField_stuID.setBounds(157, 108, 86, 20);
 		textField_stuID.setColumns(10);
@@ -130,7 +130,7 @@ public class Delete {
 
 		
 		textField_crsID = new JTextField();
-		textField_crsID.setBackground(Color.WHITE);
+		textField_crsID.setBackground(new Color(238, 232, 170));
 		textField_crsID.setEditable(false);
 		textField_crsID.setColumns(10);
 		textField_crsID.setBounds(157, 170, 86, 20);
@@ -139,7 +139,7 @@ public class Delete {
 		
 		
 		textField_Score = new JTextField();
-		textField_Score.setBackground(Color.WHITE);
+		textField_Score.setBackground(new Color(238, 232, 170));
 		textField_Score.setEditable(false);
 		textField_Score.setColumns(10);
 		textField_Score.setBounds(157, 222, 86, 20);
@@ -147,7 +147,7 @@ public class Delete {
 		panel.add(textField_Score);
 		
 		textField_StuName = new JTextField();
-		textField_StuName.setBackground(Color.WHITE);
+		textField_StuName.setBackground(new Color(238, 232, 170));
 		textField_StuName.setEditable(false);
 		textField_StuName.setColumns(10);
 		textField_StuName.setBounds(417, 108, 86, 20);
@@ -155,7 +155,7 @@ public class Delete {
 		panel.add(textField_StuName);
 		
 		textField_crsName = new JTextField();
-		textField_crsName.setBackground(Color.WHITE);
+		textField_crsName.setBackground(new Color(238, 232, 170));
 		textField_crsName.setEditable(false);
 		textField_crsName.setColumns(10);
 		textField_crsName.setBounds(417, 170, 86, 20);

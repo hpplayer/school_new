@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Query {
 
@@ -29,6 +31,7 @@ public class Query {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -80,6 +83,14 @@ public class Query {
 		frmScoreLookUp.getContentPane().add(lblScore);
 		
 		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					frmScoreLookUp.getRootPane().setDefaultButton(btnNewButton);
+				}
+			}
+		});
 		textField.setBounds(160, 41, 86, 20);
 		frmScoreLookUp.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -124,7 +135,7 @@ public class Query {
 		label_1.setBounds(278, 177, 30, 14);
 		frmScoreLookUp.getContentPane().add(label_1);
 		
-		JButton btnNewButton = new JButton("Search");
+		btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(textField.getText());

@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Component;
 
 import javax.swing.SwingConstants;
+import java.awt.SystemColor;
 
 public class GUI_update {
 
@@ -117,6 +118,7 @@ public class GUI_update {
 		panel.add(lblNewLabel_3);
 		
 		textField = new JTextField();
+		textField.setBackground(SystemColor.inactiveCaption);
 		textField.setBounds(180, 26, 136, 20);
 		panel.add(textField);
 		textField.setColumns(10);

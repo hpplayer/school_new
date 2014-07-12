@@ -1,7 +1,8 @@
 package com.intern.project.tests;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 
 
@@ -104,8 +105,9 @@ public class SimpleTest {
 			Stu.setName("David");
 			// set date
 			String strDate = "1988/08/01";
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");	
-			Date date = format.parse(strDate);
+			//SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");	
+			//Date date = format.parse(strDate);
+			Date date = Date.valueOf(strDate);
 			Stu.setBir(date);
 			
 			Stu.setSex("M");

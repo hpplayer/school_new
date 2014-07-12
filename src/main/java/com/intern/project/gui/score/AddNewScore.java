@@ -34,6 +34,7 @@ public class AddNewScore {
 	public static JTextField textField_3;
 	private static JTextField textField_4;
 	private static JTextField textField_5;
+	private JButton btnNewButton;
 	private static final AddNewScore windows = new AddNewScore();
 
 	
@@ -117,6 +118,13 @@ public class AddNewScore {
 			e.consume();
 		}
 			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					//frmScoreDetails.dispose();
+					frmScoreDetails.getRootPane().setDefaultButton(btnNewButton);
+				}
+			}
 		});
 		textField_3.setBackground(Color.WHITE);
 		textField_3.setColumns(10);
@@ -167,13 +175,19 @@ public class AddNewScore {
 				e.consume();
 			}
 			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					frmScoreDetails.getRootPane().setDefaultButton(btnNewButton);
+				}
+			}
 		});
 		textField_5.setBackground(Color.WHITE);
 		textField_5.setColumns(10);
 		textField_5.setBounds(53, 232, 181, 32);
 		panel.add(textField_5);
 		
-		JButton btnNewButton = new JButton("ENTER");
+		btnNewButton = new JButton("ENTER");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField_3.getText().isEmpty()||textField_4.getText().isEmpty()||textField_5.getText().isEmpty()){

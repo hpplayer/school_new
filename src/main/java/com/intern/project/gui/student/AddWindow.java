@@ -17,10 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import java.awt.Component;
+//import java.sql.Date;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
@@ -38,6 +41,7 @@ public class AddWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtId;
 	private JTextField textField_1;
+	//private JTextField textField_2;
 	private JFormattedTextField textField_2;
 	private JTextField textField;
 	private JTextField textField_3;
@@ -84,7 +88,8 @@ public class AddWindow extends JFrame {
 				Student tempo = new Student ();
 				tempo.setID(Long.valueOf(txtId.getText()));
 				tempo.setName(textField_1.getText());
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");	
+		
+				SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");	
 				Date date = null;
 				try {
 					date = sdf.parse(textField_2.getText());
@@ -92,7 +97,9 @@ public class AddWindow extends JFrame {
 					System.out.println("date wrong");
 				}
 				tempo.setBir(date);
+			
 				//String Birth = "19000000";
+				//Date date = Date.valueOf(textField_2.getText());
 				tempo.setSex( (String)comboBox.getSelectedItem());
 				tempo.setAdr( textField.getText());
 				tempo.setRemarks(textField_3.getText());
@@ -142,12 +149,13 @@ public class AddWindow extends JFrame {
 		lblBirthdate.setBounds(204, 8, 60, 17);
 		panel.add(lblBirthdate);
 		
-		DateFormat format = new SimpleDateFormat("yyyy/MM/dd" );
-		//DateFormatter df = new DateFormatter(format);
+		DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		DateFormatter df = new DateFormatter(format);
 		textField_2 = new JFormattedTextField(format);
 		textField_2.setInputVerifier(new FormattedTextFieldVerifier());
-		//textField_2 = new JTextField();
+		
 		textField_2.setText("yyyy/MM/dd");
+		//textField_2 = new JTextField();
 		textField_2.setColumns(10);
 		textField_2.setBounds(259, 5, 86, 20);
 		panel.add(textField_2);

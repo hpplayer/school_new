@@ -17,6 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.intern.project.POJO.Score;
 import com.intern.project.POJO.Student;
 import com.intern.project.dao.StudentDao;
 
@@ -56,12 +57,18 @@ public class StudentDaoImpl implements StudentDao{
 
 	
 	public void update(Student t) throws Exception {
-		long ID = t.getID();
 		Transaction tx = session.beginTransaction();
-		session.delete(this.findByID(ID));
-		session.save(t);
+		long ID = t.getID();
+		Student tempo = findByID(ID);
+		tempo.setName(t.getName());
+		tempo.setBir(t.getBir());
+		tempo.setAdr(t.getAdr());
+		tempo.setMajor(t.getMajor());
+		tempo.setRemarks(t.getRemarks());
+		tempo.setSex(t.getSex());
+		session.update(tempo);
 	    tx.commit();
-
+	    
 	}
 
 	public Student findByID(long iD) throws Exception {

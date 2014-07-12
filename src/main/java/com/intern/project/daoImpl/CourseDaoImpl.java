@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.intern.project.POJO.Course;
+import com.intern.project.POJO.Score;
 import com.intern.project.POJO.Student;
 import com.intern.project.dao.CourseDao;
 
@@ -44,11 +45,17 @@ public class CourseDaoImpl implements CourseDao{
 	}
 
 	public void update(Course t) throws Exception {
-		long ID = t.getCourseID();
-		//Transaction tx = session.beginTransaction();
-		delete(findByID(ID));
-		add(t);
-		//tx.commit();
+		Transaction tx = session.beginTransaction();
+		String crsName = t.getCourseName();
+		int PL = t.getPassline();
+		String remarks = t.getRemarks();
+		long crsID = t.getCourseID();
+		Course tempo = findByID(crsID);
+		tempo.setCourseName(crsName);
+		tempo.setPassline(PL);
+		tempo.setRemarks(remarks);
+		session.update(tempo);
+	    tx.commit();
 		
 	}
 
@@ -79,9 +86,9 @@ public class CourseDaoImpl implements CourseDao{
 	
 	
 	public Course findByID(long id) throws Exception {
-		Transaction tx = session.beginTransaction();
+		//Transaction tx = session.beginTransaction();
 		Course crs = (Course)session.get(Course.class, id);
-	    tx.commit();
+	    //tx.commit();
 		return crs;
 	}
 

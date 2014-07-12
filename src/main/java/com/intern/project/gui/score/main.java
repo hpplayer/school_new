@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class main {
 	private static final main window = new main();
@@ -257,7 +258,8 @@ public class main {
 		toolBar.setFloatable(false);
 		frmTranscript.getContentPane().add(toolBar, BorderLayout.NORTH);
 		
-		JButton btnNewButton_1 = new JButton("Search");
+		JButton btnNewButton_1 = new JButton(" Search ");
+		btnNewButton_1.setBackground(SystemColor.activeCaption);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Query().up();
@@ -265,7 +267,8 @@ public class main {
 		});
 		toolBar.add(btnNewButton_1);
 		
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton(" Add ");
+		btnAdd.setBackground(SystemColor.activeCaption);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new AddNewScore().up();
@@ -273,7 +276,8 @@ public class main {
 		});
 		toolBar.add(btnAdd);
 		
-		JButton btnNewButton = new JButton("List All");
+		JButton btnNewButton = new JButton(" List All ");
+		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScoreDaoImpl impl = new ScoreDaoImpl();
@@ -287,7 +291,8 @@ public class main {
 		});
 		toolBar.add(btnNewButton);
 		
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton(" Delete ");
+		btnDelete.setBackground(SystemColor.activeCaption);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getValueAt(table.getSelectedRow(),table.getSelectedColumn())== null ){
@@ -361,6 +366,86 @@ public class main {
 			}
 		});
 		toolBar.add(btnDelete);
+		
+		JButton btnEdit = new JButton(" Edit ");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if (table.getValueAt(table.getSelectedRow(),table.getSelectedColumn())== null ){
+					JOptionPane.showMessageDialog(null, "Empty input found");
+				}
+				else if (table.getSelectedColumn() == 0){
+					JOptionPane.showMessageDialog(null, "Cant Edit student ID!");
+				}
+				else if (table.getSelectedColumn() == 1){
+					JOptionPane.showMessageDialog(null, "Cant Eidt student name!");
+				}
+				else{
+				long stuID = Long.valueOf(table.getValueAt(table.getSelectedRow(), 0).toString());
+				String stuName = table.getValueAt(table.getSelectedRow(), 1).toString();
+				int col = Integer.valueOf(table.getSelectedColumn());
+				int score = Integer.valueOf(table.getValueAt(table.getSelectedRow(),table.getSelectedColumn()).toString());
+				long courseNum = 0;
+				switch(col){
+				case 2:{
+					courseNum = 1101;
+					break;
+				}
+				case 3:{
+					courseNum = 1102;
+					break;
+				}
+				case 4:{
+					courseNum = 1103;
+					break;
+				}
+				case 5:{
+					courseNum = 1104;
+					break;
+				}
+				case 6:{
+					courseNum = 1105;
+					break;
+				}
+				case 7:{
+					courseNum = 1106;
+					break;
+				}
+				case 8:{
+					courseNum =1107;
+					break;
+				}
+				case 9:{
+					courseNum = 1108;
+					break;
+				}
+				case 10:{
+					courseNum = 1109;
+					break;
+				}
+				default:{
+					//do nothing
+					break;
+				}
+				}//end switch
+				
+			CourseDaoImpl impl = new CourseDaoImpl();
+			try {
+				String crsName = impl.findByID(courseNum).getCourseName();
+				new Edit(stuID, stuName, courseNum, crsName, score); 
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}//end catch
+			
+				}
+			}
+			
+		
+		});
+		btnEdit.setBackground(SystemColor.activeCaption);
+		toolBar.add(btnEdit);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		frmTranscript.getContentPane().add(scrollPane, BorderLayout.CENTER);

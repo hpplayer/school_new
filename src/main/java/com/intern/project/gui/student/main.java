@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
@@ -25,24 +26,28 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
+import java.awt.Point;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+//import java.util.Date;
+
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 
-
-
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.StudentDaoImpl;
-import java.awt.Window.Type;
+
 
 
 public class main {
 
 	private JFrame frmStudentInfoTable;
-	private static JTable table;
 	public static JTable table_1;
 	private static final main window = new main();
 	List<Student> tempo;
@@ -145,6 +150,48 @@ public class main {
 		});
 		toolBar.add(btnNewButton_2);
 		
+		JButton btnNewButton_3 = new JButton("Edit");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table_1.getValueAt(table_1.getSelectedRow(), 0) == null ){
+					JOptionPane.showMessageDialog(null, "Invalid data!");
+				}else{
+				long stuID = Long.valueOf(table_1.getValueAt(table_1.getSelectedRow(), 0).toString());
+				String stuName = table_1.getValueAt(table_1.getSelectedRow(), 1).toString();
+				String Sex = table_1.getValueAt(table_1.getSelectedRow(), 2).toString();
+				/*
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);	
+				Date date = null;
+				try {
+					date = sdf.parse(table_1.getValueAt(table_1.getSelectedRow(), 3).toString());
+
+
+				} catch (ParseException ex) {
+					System.out.println("date wrong");
+				};
+			*/
+				Date date = Date.valueOf(table_1.getValueAt(table_1.getSelectedRow(), 3).toString());
+				String major = table_1.getValueAt(table_1.getSelectedRow(), 4).toString();
+				String Adr = table_1.getValueAt(table_1.getSelectedRow(), 5).toString();
+				String RMKs = table_1.getValueAt(table_1.getSelectedRow(), 6).toString();
+				
+				Student tempo = new Student();
+				tempo.setID(stuID);
+				tempo.setName(stuName);
+				tempo.setSex(Sex);
+				tempo.setBir(date);
+				tempo.setMajor(major);
+				tempo.setAdr(Adr);
+				tempo.setRemarks(RMKs);
+				
+				new EditWindow(tempo);
+				
+			}
+			}
+		});
+		btnNewButton_3.setBackground(new Color(176, 224, 230));
+		toolBar.add(btnNewButton_3);
+		
 	
 		String[] ColName=  {
 				"ID", "Name", "Sex", "Birthdate", "Class", "Address", "Comments"
@@ -180,6 +227,34 @@ public class main {
 				}
 			};
 		table_1 = new JTable(model);
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Point pnt = e.getPoint();
+				int row = table_1.rowAtPoint(pnt);
+				int col = table_1.columnAtPoint(pnt);
+				if (e.getClickCount() == 2){
+					if ( table_1.getValueAt(row, col) == null){
+						//new NoDataAvaiable().up();
+						JOptionPane.showMessageDialog(null, "Invalid data!");
+			
+					}else{			
+						StudentDaoImpl impl = new StudentDaoImpl();
+						long StuID = Long.valueOf(table_1.getValueAt(row, 0).toString());
+						//System.out.println(StuID);
+						try {
+							Student tempo = impl.findByID(StuID);
+							System.out.println(tempo.getName());
+							new Double_clicked(tempo);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				
+					}
+				}
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane(table_1);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -193,6 +268,7 @@ public class main {
 		StudentDaoImpl stuImpl2 = new StudentDaoImpl();
 		try {
 			tempo = stuImpl2.findAll();
+			//System.out.println(tempo.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

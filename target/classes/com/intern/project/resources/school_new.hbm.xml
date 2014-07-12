@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>  
+              <!DOCTYPE hibernate-mapping PUBLIC
+              "-//Hibernate/Hibernate Mapping DTD//EN"
+              "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+              
+              <hibernate-mapping package="hibernate_Classes">
+                <class name="com.intern.project.POJO.Student" table="student">
+                
+                    <id name="ID" type="long">
+                    </id>
+                    
+                    <property name="Name" column="name" type="string"/>
+                    <property name="Sex" column="Sex" type="string"/>
+                    <property name="Bir" column="Bir" type="date"/>
+                    <property name="major" column="Class" type="string"/>
+                    <property name="adr" column="Adr" type="string"/>
+                    <property name="Remarks" column="Remarks" type="string"/>
+                    <bag name = "courses" table = "enroll">
+                    	<key column = "Student_ID" />
+                    	<many-to-many column = "course_ID" class = "com.intern.project.POJO.Course"/>
+                    </bag>
+               </class>
+               
+                   <class name="com.intern.project.POJO.Course" table="course">
+                
+                    <id name="courseID" column="course_ID" type="long">
+                    </id>
+                    
+                    <property name="courseName" column="course_Name" type="string"/>
+                    <property name="passline" column="course_Passline" type="int"/>
+                    <property name="Remarks" column="Remarks" type="string"/>
+                      <bag name = "students" table = "enroll">
+                    	<key column = "Course_ID" />
+                    	<many-to-many column = "Student_ID" class = "com.intern.project.POJO.Student"/>
+                    </bag>
+               </class>
+               
+ 					 <class name="com.intern.project.POJO.Score" table="score">
+					<id name="ID" type="int">
+                	<generator class ="increment"/>	
+                	 </id>
+                    <property name="student_ID" column="Student_ID" type="long"/>
+                    <property name="course_ID" column="course_ID" type="long"/>
+                    <property name="score" column="course_score" type="int"/>
+               </class>
+ 				 
+              </hibernate-mapping>

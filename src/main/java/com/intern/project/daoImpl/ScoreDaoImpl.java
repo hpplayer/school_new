@@ -66,10 +66,12 @@ private Session session;
 	}
 
 	public void update(Score t) throws Exception {
-		long ID = t.getStudent_ID();
 		Transaction tx = session.beginTransaction();
-		session.delete(this.findByStudentID(ID));
-		session.save(t);
+		long stuID = t.getStudent_ID();
+		long crsID = t.getCourse_ID();
+		Score tempo = findbyStuIDandCrsID(stuID,crsID);
+		tempo.setScore(t.getScore());
+		session.update(tempo);
 	    tx.commit();
 		
 	}

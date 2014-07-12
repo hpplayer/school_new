@@ -16,11 +16,16 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.CourseDaoImpl;
 import com.intern.project.daoImpl.StudentDaoImpl;
 import com.intern.project.gui.course.GUI_main;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Double_clicked {
 
@@ -31,6 +36,7 @@ public class Double_clicked {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JButton btnNewButton;
 	long stuID;
 	String stuName;
 	long courseNum;
@@ -65,8 +71,8 @@ public class Double_clicked {
 		this.row = row;
 		this.col = col;
 	
-		System.out.println(row);
-		System.out.println(col);
+		//System.out.println(row);
+		//System.out.println(col);
 		try {
 		//stuID = (Long) main.getInstance().table.getValueAt(row, 0);
 			//System.out.println(main.getInstance().table.getValueAt(0, 0));
@@ -142,6 +148,8 @@ public class Double_clicked {
 
 	}
 
+	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -152,6 +160,7 @@ public class Double_clicked {
 		frmScoreDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
+	
 		frmScoreDetails.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
@@ -186,48 +195,56 @@ public class Double_clicked {
 		panel.add(lblScore);
 		
 		textField = new JTextField();
-		textField.setBackground(Color.WHITE);
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					frmScoreDetails.getRootPane().setDefaultButton(btnNewButton);
+				}
+			}
+		});
+		textField.setBackground(SystemColor.inactiveCaption);
 		textField.setEditable(false);
 		textField.setBounds(53, 70, 181, 32);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBackground(Color.WHITE);
+		textField_1.setBackground(SystemColor.inactiveCaption);
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		textField_1.setBounds(53, 157, 181, 32);
 		panel.add(textField_1);
 		
 		textField_2 = new JTextField();
-		textField_2.setBackground(Color.WHITE);
+		textField_2.setBackground(SystemColor.inactiveCaption);
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
 		textField_2.setBounds(53, 243, 181, 32);
 		panel.add(textField_2);
 		
 		textField_3 = new JTextField();
-		textField_3.setBackground(Color.WHITE);
+		textField_3.setBackground(SystemColor.inactiveCaption);
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
 		textField_3.setBounds(311, 67, 181, 32);
 		panel.add(textField_3);
 		
 		textField_4 = new JTextField();
-		textField_4.setBackground(Color.WHITE);
+		textField_4.setBackground(SystemColor.inactiveCaption);
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		textField_4.setBounds(311, 156, 181, 32);
 		panel.add(textField_4);
 		
 		textField_5 = new JTextField();
-		textField_5.setBackground(Color.WHITE);
+		textField_5.setBackground(SystemColor.inactiveCaption);
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		textField_5.setBounds(311, 243, 181, 32);
 		panel.add(textField_5);
 		
-		JButton btnNewButton = new JButton("ENTER");
+		btnNewButton = new JButton("ENTER");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmScoreDetails.dispose();
