@@ -41,7 +41,8 @@ public class main {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
+	public void up() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -140,7 +141,7 @@ public class main {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		
+		new com.intern.project.print.main2(table, "lalala");
 	}
 	
 	public void drawTable(){
@@ -252,7 +253,7 @@ public class main {
 		frmTranscript.setResizable(false);
 		frmTranscript.setTitle("Transcript\r\n");
 		frmTranscript.setBounds(100, 100, 900, 451);
-		frmTranscript.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmTranscript.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
@@ -446,6 +447,15 @@ public class main {
 		});
 		btnEdit.setBackground(SystemColor.activeCaption);
 		toolBar.add(btnEdit);
+		
+		JButton btnPrint = new JButton("Print");
+		btnPrint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new com.intern.project.print.main2(table, "transcript");
+			}
+		});
+		btnPrint.setBackground(SystemColor.activeCaption);
+		toolBar.add(btnPrint);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		frmTranscript.getContentPane().add(scrollPane, BorderLayout.CENTER);

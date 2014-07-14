@@ -33,7 +33,11 @@ public class GUI_main {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+	public void up() {
+		frmCourseInfoTable.setVisible(true);
+		/*
+		 public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -43,6 +47,7 @@ public class GUI_main {
 				}
 			}
 		});
+		*/
 	}
 
 	public void drawTableByList(List<Course> tempo){
@@ -127,7 +132,7 @@ public class GUI_main {
 		frmCourseInfoTable.setResizable(false);
 		frmCourseInfoTable.setTitle("Course Info Table");
 		frmCourseInfoTable.setBounds(100, 100, 597, 361);
-		frmCourseInfoTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCourseInfoTable.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmCourseInfoTable.getContentPane().setLayout(null);
 		
 		JToolBar toolBar = new JToolBar();
@@ -175,6 +180,14 @@ public class GUI_main {
 			}
 		});
 		toolBar.add(btnQuery);
+		
+		JButton btnPrint = new JButton("Print");
+		btnPrint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new com.intern.project.print.main3(table, "course");
+			}
+		});
+		toolBar.add(btnPrint);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 24, 591, 318);

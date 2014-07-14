@@ -55,7 +55,8 @@ public class main {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
+	public void up() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -86,7 +87,7 @@ public class main {
 		frmStudentInfoTable = new JFrame();
 		frmStudentInfoTable.setTitle("Student Info Table");
 		frmStudentInfoTable.setBounds(100, 100, 658, 437);
-		frmStudentInfoTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStudentInfoTable.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmStudentInfoTable.setJMenuBar(menuBar);
@@ -96,14 +97,12 @@ public class main {
 		
 		JMenuItem mntmPrint = new JMenuItem("print");
 		mntmPrint.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("BEEEEEP");
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				new com.intern.project.print.main4(table_1, "Student");
 			}
 		});
 		mnNewMenu.add(mntmPrint);
-		
-		JMenu menu = new JMenu("New menu");
-		menuBar.add(menu);
 		
 		
 		
@@ -192,6 +191,15 @@ public class main {
 		btnNewButton_3.setBackground(new Color(176, 224, 230));
 		toolBar.add(btnNewButton_3);
 		
+		JButton btnNewButton_4 = new JButton("Print");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new com.intern.project.print.main4(table_1, "Student");
+			}
+		});
+		btnNewButton_4.setBackground(new Color(123, 104, 238));
+		toolBar.add(btnNewButton_4);
+		
 	
 		String[] ColName=  {
 				"ID", "Name", "Sex", "Birthdate", "Class", "Address", "Comments"
@@ -226,7 +234,40 @@ public class main {
 					return columnEditables[column];
 				}
 			};
-		table_1 = new JTable(model);
+		table_1 = new JTable(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"ID", "Name", "Sex", "Birthdate", "Class", "Address", "Comments"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
