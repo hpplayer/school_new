@@ -14,6 +14,9 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Course;
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.CourseDaoImpl;
@@ -65,8 +68,9 @@ public class GUI_main {
 	}
 	
 	public void drawTable(){
-		//System.out.println("Im here");
-		CourseDaoImpl impl = new CourseDaoImpl();
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+		CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
+		
 		try {
 			tempo = impl.findAll();
 		} catch (Exception e) {

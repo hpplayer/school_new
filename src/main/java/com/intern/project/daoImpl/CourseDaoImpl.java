@@ -31,6 +31,7 @@ public class CourseDaoImpl implements CourseDao{
 		
 	}
 
+
 	public void delete(Course t) throws Exception {
 		Transaction tx = session.beginTransaction();
 	    session.delete(t);
@@ -59,7 +60,7 @@ public class CourseDaoImpl implements CourseDao{
 		
 	}
 
-	//public List<Course> findByAnyInfo (Long ID, String Name, int passline, String remarks ){
+
 	public List<Course> findByAnyInfo (String ID, String Name, String passline, String remarks ){
 
 		

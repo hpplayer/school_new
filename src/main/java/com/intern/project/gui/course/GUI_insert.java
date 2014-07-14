@@ -131,7 +131,11 @@ public class GUI_insert {
 				int PL = Integer.valueOf(textField_2.getText());
 				String remarks = textField_3.getText();
 				Course tempo = new Course().CreateAccount(ID, name, PL, remarks);
-				CourseDaoImpl impl = new CourseDaoImpl();
+				
+				//CourseDaoImpl impl = new CourseDaoImpl();
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
+				
 				try {
 					impl.add(tempo);
 				} catch (Exception e) {

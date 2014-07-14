@@ -22,6 +22,9 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.StudentDaoImpl;
 
@@ -117,7 +120,12 @@ public class Double_clicked {
 				tempo.setAdr( textField_Addr.getText());
 				tempo.setRemarks(textField_Remarks.getText());
 				tempo.setMajor(textField_Class.getText());
-				StudentDaoImpl stuImpl = new StudentDaoImpl();
+				
+				
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				StudentDaoImpl stuImpl = (StudentDaoImpl) ctx.getBean("StuImpl");
+				
+				//StudentDaoImpl stuImpl = new StudentDaoImpl();
 				
 				try {
 				stuImpl.update(tempo);

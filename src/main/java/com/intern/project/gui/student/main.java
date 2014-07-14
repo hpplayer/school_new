@@ -40,13 +40,18 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.StudentDaoImpl;
 
 
 
 public class main {
-
+	
+	ApplicationContext ctx;
 	private JFrame frmStudentInfoTable;
 	public static JTable table_1;
 	private static final main window = new main();
@@ -77,6 +82,7 @@ public class main {
 	 * Create the application.
 	 */
 	public main() {
+		ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
 		initialize();
 	}
 
@@ -124,7 +130,8 @@ public class main {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				String getID = table_1.getValueAt(table_1.getSelectedRow(), 0).toString();
-				StudentDaoImpl stuImpl = new StudentDaoImpl();
+				//StudentDaoImpl stuImpl = new StudentDaoImpl();
+				StudentDaoImpl stuImpl = (StudentDaoImpl) ctx.getBean("StuImpl");
 				try {
 					stuImpl.deleteById(Long.valueOf(getID));
 					drawTable();
@@ -280,7 +287,9 @@ public class main {
 						JOptionPane.showMessageDialog(null, "Invalid data!");
 			
 					}else{			
-						StudentDaoImpl impl = new StudentDaoImpl();
+						
+						StudentDaoImpl impl = (StudentDaoImpl) ctx.getBean("StuImpl");
+						
 						long StuID = Long.valueOf(table_1.getValueAt(row, 0).toString());
 						//System.out.println(StuID);
 						try {
@@ -306,7 +315,7 @@ public class main {
 	
 	public void drawTable(){
 		//System.out.println("Im here");
-		StudentDaoImpl stuImpl2 = new StudentDaoImpl();
+		StudentDaoImpl stuImpl2 =  (StudentDaoImpl) ctx.getBean("StuImpl");
 		try {
 			tempo = stuImpl2.findAll();
 			//System.out.println(tempo.size());

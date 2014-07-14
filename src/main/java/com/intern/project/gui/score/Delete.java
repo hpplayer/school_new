@@ -14,6 +14,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Score;
 import com.intern.project.daoImpl.ScoreDaoImpl;
 
@@ -166,7 +169,8 @@ public class Delete {
 		btnNewButton.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScoreDaoImpl impl = new ScoreDaoImpl();
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				ScoreDaoImpl impl = (ScoreDaoImpl) ctx.getBean("ScoreImpl");
 				try {
 					impl.deleteByStuIdANDCrsID(stuID, crsID);
 					main.getInstance().drawTable();

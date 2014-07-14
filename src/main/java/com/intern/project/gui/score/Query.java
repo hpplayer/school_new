@@ -11,9 +11,10 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Score;
 import com.intern.project.daoImpl.ScoreDaoImpl;
-import com.intern.project.daoImpl.StudentDaoImpl;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -148,7 +149,9 @@ public class Query {
 					Long crsIDMax = Long.valueOf(textField_3.getText());
 					int scrMin = Integer.valueOf(textField_4.getText());
 					int scrMax = Integer.valueOf(textField_5.getText());
-				ScoreDaoImpl impl = new ScoreDaoImpl();
+					
+				ClassPathXmlApplicationContext	ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				ScoreDaoImpl impl = (ScoreDaoImpl) ctx.getBean("ScoreImpl");
 				List<Long> stuID= new ArrayList<Long>();
 				List<Score> results= new ArrayList<Score>();
 				try{

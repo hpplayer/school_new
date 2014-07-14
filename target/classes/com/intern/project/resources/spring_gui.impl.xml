@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id = "courseGUI" class="com.intern.project.gui.course.GUI_main">	</bean>
+	<bean id = "StudentGUI" class="com.intern.project.gui.student.main">	</bean>
+	<bean id = "ScoreGUI" class="com.intern.project.gui.score.main">	</bean>
+</beans>

@@ -4,18 +4,34 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Toolkit;
 
+import javax.swing.JPasswordField;
+import javax.swing.JPopupMenu;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.intern.project.gui.course.GUI_main;
+
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Canvas;
+
 public class main {
 
-	private JFrame frame;
+	private JFrame frmMainControlPanel;
+	ClassPathXmlApplicationContext ac;
 
 	/**
 	 * Launch the application.
@@ -25,7 +41,7 @@ public class main {
 			public void run() {
 				try {
 					main window = new main();
-					window.frame.setVisible(true);
+					window.frmMainControlPanel.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,6 +53,7 @@ public class main {
 	 * Create the application.
 	 */
 	public main() {
+		 ac = new ClassPathXmlApplicationContext("com/intern/project/resources/spring_gui.impl.xml");
 		initialize();
 	}
 
@@ -44,14 +61,15 @@ public class main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 584, 382);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMainControlPanel = new JFrame();
+		frmMainControlPanel.setTitle("Main Control Panel");
+		frmMainControlPanel.setResizable(false);
+		frmMainControlPanel.setBounds(100, 100, 584, 382);
+		frmMainControlPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(153, 153, 204));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		frmMainControlPanel.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Student");
@@ -72,16 +90,20 @@ public class main {
 		JButton btnNewButton = new JButton("Enter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new com.intern.project.gui.student.main().up();
+				com.intern.project.gui.student.main test = (com.intern.project.gui.student.main) ac.getBean("StudentGUI");
+				test.up();
 			}
 		});
+		
 		btnNewButton.setBounds(40, 228, 89, 43);
 		panel.add(btnNewButton);
 		
 		JButton btnEnter = new JButton("Enter");
 		btnEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new com.intern.project.gui.course.GUI_main().up();
+				//new com.intern.project.gui.course.GUI_main().up();
+				GUI_main gm = (GUI_main) ac.getBean("courseGUI");
+				gm.up();
 			}
 		});
 		btnEnter.setBounds(240, 228, 89, 43);
@@ -90,7 +112,8 @@ public class main {
 		JButton btnEnter_1 = new JButton("Enter");
 		btnEnter_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new com.intern.project.gui.score.main().up();
+				com.intern.project.gui.score.main gm = (com.intern.project.gui.score.main) ac.getBean("ScoreGUI");
+				gm.up();
 			}
 		});
 		btnEnter_1.setBounds(423, 228, 89, 43);
@@ -101,5 +124,22 @@ public class main {
 		lblWelcomeToStudent.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		lblWelcomeToStudent.setBounds(27, 21, 500, 43);
 		panel.add(lblWelcomeToStudent);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }

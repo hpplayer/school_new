@@ -17,6 +17,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Score;
 import com.intern.project.daoImpl.CourseDaoImpl;
 import com.intern.project.daoImpl.ScoreDaoImpl;
@@ -209,7 +212,9 @@ public class AddNewScore {
 					scr.setCourse_ID(corID);
 					scr.setStudent_ID(stuID);
 					scr.setScore(score);
-					ScoreDaoImpl impl3 = new ScoreDaoImpl();
+					ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+					ScoreDaoImpl impl3 = (ScoreDaoImpl) ctx.getBean("ScoreImpl");
+					//ScoreDaoImpl impl3 = new ScoreDaoImpl();
 					impl3.add(scr);
 				}else{
 					if (impl.findByID(stuID) == null){

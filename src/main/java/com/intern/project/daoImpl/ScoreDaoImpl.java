@@ -59,6 +59,7 @@ private Session session;
 		
 	}
 	
+
 	public void deleteByStuIdANDCrsID(long stuid, long crsid) throws Exception {
 		Score tempo = findbyStuIDandCrsID(stuid,crsid);
 		delete(tempo);
@@ -76,6 +77,7 @@ private Session session;
 		
 	}
 
+
 	public List<Score> findByStudentID(long id) throws Exception {
 		Criteria cr = session.createCriteria(Score.class);
 		cr.add(Restrictions.eq("student_ID", id));
@@ -83,13 +85,14 @@ private Session session;
 		return results;
 	}
 	
+
 	public List<Score> findByCourseID(long id) throws Exception {
 		Criteria cr = session.createCriteria(Score.class);
 		cr.add(Restrictions.eq("course_ID", id));
 		List<Score> results = cr.list();
 		return results;
 	}
-	
+
 	public Score findbyStuIDandCrsID(long StuID, long crsID){
 		Criteria cr = session.createCriteria(Score.class);
 		cr.add(Restrictions.eq("course_ID", crsID));
@@ -145,7 +148,7 @@ private Session session;
 	        tx.commit();
 	        return score;
 	}
-	
+
 	public List<Long> ReturnStuList(){
 		Transaction tx = session.beginTransaction();
 		String hql = "SELECT distinct student_ID FROM Score";
@@ -155,7 +158,7 @@ private Session session;
 	    return stuID;
 	}
 	
-	
+
 	public long CountStudent() {
 		Transaction tx = session.beginTransaction();
 		String hql = "SELECT count(distinct student_ID) FROM Score";

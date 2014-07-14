@@ -16,8 +16,12 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.CourseDaoImpl;
+import com.intern.project.daoImpl.ScoreDaoImpl;
 import com.intern.project.daoImpl.StudentDaoImpl;
 import com.intern.project.gui.course.GUI_main;
 
@@ -45,6 +49,7 @@ public class Double_clicked {
 	String corName;
 	int row;
 	int col;
+	ApplicationContext ctx;
 	
 	/**
 	 * Launch the application.
@@ -77,8 +82,10 @@ public class Double_clicked {
 		//stuID = (Long) main.getInstance().table.getValueAt(row, 0);
 			//System.out.println(main.getInstance().table.getValueAt(0, 0));
 		stuID = Long.valueOf( main.getInstance().table.getValueAt(row, 0).toString());
-		
-		stuName = new StudentDaoImpl().findByID(stuID).getName();
+		ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+		StudentDaoImpl impl = (StudentDaoImpl) ctx.getBean("StuImpl");
+		stuName = impl.findByID(stuID).getName();
+		//stuName = new StudentDaoImpl().findByID(stuID).getName();
 		//System.out.println(stuName);
 		int colNum = col;
 
@@ -130,9 +137,9 @@ public class Double_clicked {
 		 score = Integer.valueOf( main.getInstance().table.getValueAt(row, col).toString());
 	
 	
-		
-		PL = new CourseDaoImpl().findByID(courseNum).getPassline();
-		corName = new CourseDaoImpl().findByID(courseNum).getCourseName();
+		 CourseDaoImpl impl2 = (CourseDaoImpl) ctx.getBean("CourseImpl");
+		PL = impl2.findByID(courseNum).getPassline();
+		corName = impl2.findByID(courseNum).getCourseName();
 		textField.setText(stuName);
 		textField_1.setText(corName);
 		textField_2.setText(PL+"");

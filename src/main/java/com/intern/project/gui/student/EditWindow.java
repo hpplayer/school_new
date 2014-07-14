@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.DateFormatter;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
+
 //import java.sql.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -28,10 +29,12 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.StudentDaoImpl;
+
 import java.awt.Color;
 
 public class EditWindow extends JFrame {
@@ -105,7 +108,9 @@ public class EditWindow extends JFrame {
 				tempo.setAdr( textField_Addr.getText());
 				tempo.setRemarks(textField_Remarks.getText());
 				tempo.setMajor(textField_Class.getText());
-				StudentDaoImpl stuImpl = new StudentDaoImpl();
+				
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				StudentDaoImpl stuImpl = (StudentDaoImpl) ctx.getBean("StuImpl");
 				
 				try {
 				stuImpl.update(tempo);

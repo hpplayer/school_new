@@ -14,18 +14,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 
-import com.intern.project.POJO.Course;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
 import com.intern.project.POJO.Score;
 import com.intern.project.POJO.Student;
 import com.intern.project.daoImpl.CourseDaoImpl;
 import com.intern.project.daoImpl.ScoreDaoImpl;
 import com.intern.project.daoImpl.StudentDaoImpl;
-import com.intern.project.gui.course.GUI_main;
+
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,12 +38,14 @@ public class main {
 	private JFrame frmTranscript;
 	public static JTable table;
 	List<Score> tempo;
+	ApplicationContext ctx;
 	
 
 	/**
 	 * Launch the application.
 	 */
 	//public static void main(String[] args) {
+	
 	public void up() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,7 +64,8 @@ public class main {
 	}
 	
 	public void drawTable(List<Score> sc, List<Long> stuList){
-		StudentDaoImpl impl2 = new StudentDaoImpl();
+	
+		StudentDaoImpl impl2 = (StudentDaoImpl) ctx.getBean("StuImpl");
 		for (int r = 0; r < 23; r++){
 			for (int c = 0; c < 11; c++){
 				table.setValueAt(null, r, c);
@@ -141,13 +146,14 @@ public class main {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		new com.intern.project.print.main2(table, "lalala");
+	//	new com.intern.project.print.main2(table, "lalala");
 	}
 	
 	public void drawTable(){
 		//System.out.println("Im here");
-		ScoreDaoImpl impl = new ScoreDaoImpl();
-		StudentDaoImpl impl2 = new StudentDaoImpl();
+		
+		ScoreDaoImpl impl = (ScoreDaoImpl) ctx.getBean("ScoreImpl");
+		StudentDaoImpl impl2 = (StudentDaoImpl) ctx.getBean("StuImpl");
 		long NumOfStu = impl.CountStudent();
 		
 		for (int r = 0; r < 23; r++){
@@ -243,6 +249,8 @@ public class main {
 	 */
 	public main() {
 		initialize();
+		ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+
 	}
 
 	/**
@@ -281,7 +289,7 @@ public class main {
 		btnNewButton.setBackground(SystemColor.activeCaption);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ScoreDaoImpl impl = new ScoreDaoImpl();
+				ScoreDaoImpl impl  = (ScoreDaoImpl) ctx.getBean("ScoreImpl");
 				try {
 					drawTable();
 				} catch (Exception e1) {
@@ -354,7 +362,7 @@ public class main {
 				}
 				}//end switch
 				
-			CourseDaoImpl impl = new CourseDaoImpl();
+			CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
 			try {
 				String crsName = impl.findByID(courseNum).getCourseName();
 				new Delete(stuID, stuName, courseNum, crsName, score); 
@@ -431,7 +439,7 @@ public class main {
 				}
 				}//end switch
 				
-			CourseDaoImpl impl = new CourseDaoImpl();
+			CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
 			try {
 				String crsName = impl.findByID(courseNum).getCourseName();
 				new Edit(stuID, stuName, courseNum, crsName, score); 

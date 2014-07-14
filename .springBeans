@@ -7,6 +7,8 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>src/main/java/com/intern/project/resources/spring_gui.impl.xml</config>
+		<config>src/main/java/com/intern/project/resources/Spring_DaoImpl.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -142,7 +142,8 @@ public class GUI_update {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					CourseDaoImpl impl = new CourseDaoImpl();
+					ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+					CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
 					//impl.deleteById(ID2);
 					int ID = Integer.valueOf(textField.getText());
 					String name = textField_1.getText();

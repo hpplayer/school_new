@@ -129,7 +129,9 @@ public class GUI_query {
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CourseDaoImpl impl = new CourseDaoImpl();
+				//CourseDaoImpl impl = new CourseDaoImpl();
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				CourseDaoImpl impl = (CourseDaoImpl) ctx.getBean("CourseImpl");
 				
 				String[] list = {textField.getText(), textField_1.getText(),  textField_2.getText(),  textField_3.getText()};
 				int[] list2 = null;

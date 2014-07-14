@@ -25,15 +25,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.intern.project.POJO.Student;
+import com.intern.project.daoImpl.CourseDaoImpl;
 import com.intern.project.daoImpl.StudentDaoImpl;
 
 public class AddWindow extends JFrame {
@@ -104,10 +107,10 @@ public class AddWindow extends JFrame {
 				tempo.setAdr( textField.getText());
 				tempo.setRemarks(textField_3.getText());
 				tempo.setMajor(textField_4.getText());
-				StudentDaoImpl stuImpl = new StudentDaoImpl();
-				
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("file:E:/workspace/school_new/src/main/java/com/intern/project/resources/Spring_DaoImpl.xml");
+				StudentDaoImpl impl = (StudentDaoImpl) ctx.getBean("StuImpl");
 				try {
-				stuImpl.add(tempo);
+				impl.add(tempo);
 				//System.out.println(stuImpl.findAll().size());
 				main.getInstance().drawTable();
 				//System.out.println(main.getInstance().tempo.get(3).getID());
