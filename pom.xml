@@ -12,6 +12,14 @@
 	<description>
 		<![CDATA[This project is a minimal jar utility with Spring configuration for Hibernate.]]>
 	</description>
+	
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+	
 	<properties>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
 		<spring.framework.version>3.0.0.RELEASE</spring.framework.version>
@@ -54,6 +62,7 @@
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.framework.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -90,13 +99,24 @@
 			<version>1.5.8</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>3.6.3.Final</version>
+		</dependency>
+		
 		
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.31</version>
 		</dependency>
-
+		
+	<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>3.6.3.Final</version>
+		</dependency>
 
 
 		<dependency>
